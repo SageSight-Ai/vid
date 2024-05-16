@@ -18,12 +18,9 @@ from concurrent.futures import ThreadPoolExecutor
 from tenacity import retry, stop_after_attempt, wait_exponential
 import validators
 
-# API Recraft key
-authorization_header = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJmUnEwV0FmTEhuV2RobkZXMWllXyJ9.eyJpc3MiOiJodHRwczovL3JlY3JhZnRhaS51cy5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTI3MjY0MjcwMjUyNjUwNjEzMjAiLCJhdWQiOlsicmVjcmFmdC1iYWNrZW5kIiwiaHR0cHM6Ly9yZWNyYWZ0YWkudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTcxNTgyMzg1MSwiZXhwIjoxNzE1OTEwMjUxLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIHJlYWQ6YWxsIG9mZmxpbmVfYWNjZXNzIiwiYXpwIjoiNWhnejBlMm9RcG8yQTlYcDhhODByalZ3QkVId0hLbEIifQ.iAu0_LmIPC4dGm646c1VaHwcREWP0xO4KQwF2VVNVdObWQv3orJhd39Z8R-5ZdIwG91jHS4C7kXPq8bZCM1udOOwDKJJqCo6_wDgyWHGcEeOfEskLNYmsFil2YVOu0popDDUqoX52R6o5yPIbbpO8qJV7ElqNVGUQNronZC0bOsUVLq8smy2I9DMtD0rJAcBl5hZzO-3LMMQwpe3KzylwhZJVeNngLvG6oNb3RfBMzF_sHBcOOFvFFZ09vta1XUV6Fbbp2-hrr8HKRgy3JxpFVFmcX9kcNDmTnf2_XKtetZkgXUVNPpjcJg9ZNbEEiqIXc5Jaqg5LCA29YnVo-XiTQ" 
-# API authorization key
+# API Keys and Credentials
+authorization_header = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJmUnEwV0FmTEhuV2RobkZXMWllXyJ9.eyJpc3MiOiJodHRwczovL3JlY3JhZnRhaS51cy5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTI3MjY0MjcwMjUyNjUwNjEzMjAiLCJhdWQiOlsicmVjcmFmdC1iYWNrZW5kIiwiaHR0cHM6Ly9yZWNyYWZ0YWkudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTcxNTgyMzg1MSwiZXhwIjoxNzE1OTEwMjUxLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIHJlYWQ6YWxsIG9mZmxpbmVfYWNjZXNzIiwiYXpwIjoiNWhnejBlMm9RcG8yQTlYcDhhODByalZ3QkVId0hLbEIifQ.iAu0_LmIPC4dGm646c1VaHwcREWP0xO4KQwF2VVNVdObWQv3orJhd39Z8R-5ZdIwG91jHS4C7kXPq8bZCM1udOOwDKJJqCo6_wDgyWHGcEeOfEskLNYmsFil2YVOu0popDDUqoX52R6o5yPIbbpO8qJV7ElqNVGUQNronZC0bOsUVLq8smy2I9DMtD0rJAcBl5hZzO-3LMMQwpe3KzylwhZJVeNngLvG6oNb3RfBMzF_sHBcOOFvFFZ09vta1XUV6Fbbp2-hrr8HKRgy3JxpFVFmcX9kcNDmTnf2_XKtetZkgXUVNPpjcJg9ZNbEEiqIXc5Jaqg5LCA29YnVo-XiTQ"
 authorization_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTYxNDA5YzctY2IyMS00ZDJhLWJiZWUtMTdmZTM3MWEyOGNmIiwidHlwZSI6ImFwaV90b2tlbiJ9.ugKWyxuOM7_db4O1jHbhskk37GAf302roHEKR2qi-cQ"
-
-# AWS S3 credentials
 aws_access_key_id = "AKIAZQ3DN6O2PREMNYIL"
 aws_secret_access_key = "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"
 s3_bucket_name = "gen.videos.s3"
@@ -68,7 +65,7 @@ def generate_prompts(content):
         "providers": "perplexityai",
         "settings": "{ \"perplexityai\": \"pplx-7b-online\" }",
         "text": content,
-        "chatbot_global_action": "You are a creative art director for cinematic footage. You are young but a genius in your field. Your vision is modern aesthetic[aesthetic: a particular theory or conception of beauty or art : a particular taste for or approach to what is pleasing to the senses and especially sight. modernist aesthetics.], and the techniques and shooting angles you use are atypical. The company you work for is a media company that creates videos on social media. They hired you because of your stunning aesthetic and atypical visuals and FX. After AI took over, you decided to work from home. By reading the content they send to you, then writing a perfect image scene prompts.[[Modern vibes]]… [scenes should be fitting the content sequence]  Each prompt should be in a line. The structure of an AI art prompt[[image content/subject, description of action, state, and mood],[ Make at least 25 image prompts ]. The images should be creative , with some specials FX, and filters, engaging and  detailed prompts, start writing the prompts directly, [also try to avoid anything that may cuz a text in the image, because the Ai model they using is not able to process the text in the scenes] ((no empty lines)) [Make 25 image prompt at least], HERE IS THE CONTENT :"
+        "chatbot_global_action": "You are a creative art director for cinematic footage. You are young but a genius in your field. Your vision is modern aesthetic[aesthetic: a particular theory or conception of beauty or art : a particular taste for or approach to what is pleasing to the senses and especially sight. modernist aesthetics.], and the techniques and shooting angles you use are atypical. The company you work for is a media company that creates videos on social media. They hired you because of your stunning aesthetic and atypical visuals and FX. After AI took over, you decided to work from home. By reading the content they send to you, then writing a perfect image scene prompts.[[Modern vibes]]… [scenes should be fitting the content sequence]  Each prompt should be in a line. The structure of an AI art prompt[[image content/subject, description of action, state, and mood],[ Make at least 25 image prompts ]. The images should be creative , with some specials FX, and filters, engaging and  detailed prompts, start writing the prompts directly, [also try to avoid anything that may cuz a text in the image, because the Ai model they using is not able to process the text in the scenes] ((no empty lines)) [Make 25 image prompt at least], HERE IS THE CONTENT :"
     }
     headers = {
         "accept": "application/json",
@@ -90,9 +87,7 @@ def generate_random_seed():
 
 # Function to remove empty lines from prompts
 def remove_empty_lines(prompts):
-    return '\n'.join(filter(lambda x
-
-: x.strip(), prompts.split('\n')))
+    return '\n'.join(filter(lambda x: x.strip(), prompts.split('\n')))
 
 # Function to download audio with unique filename
 def download_audio(audio_url):
@@ -171,7 +166,6 @@ def generate_video(image_urls, audio_url):
         if not validators.url(url):
             print(f"Invalid image URL: {url}")
             continue  # Skip invalid URLs
-
         response = requests.get(url)
         image = Image.open(BytesIO(response.content))
         # Resize image to reduce memory usage
@@ -232,27 +226,22 @@ def generate_video(image_urls, audio_url):
         s3_client.upload_file(output_filename, s3_bucket_name, output_filename)
         s3_url = f"https://{s3_bucket_name}.s3.amazonaws.com/{output_filename}"
         print(f"Video uploaded to S3: {s3_url}")
-        
         return s3_url  # Return the S3 URL of the video
     except Exception as e:
         print(f"Error uploading video to S3: {e}")
         return None
 
-
-
 # Define headers for the image generation requests
 headers = {
     'authority': 'api.recraft.ai',
-    'accept': '*/*',
+    'accept': '/',
     'accept-language': 'en-US,en;q=0.8',
     'authorization': authorization_header,
     'content-type': 'application/json',
     'origin': 'https://app.recraft.ai',
     'referer': 'https://app.recraft.ai/',
     'sec-ch-ua': '"Not A(Brand";v="99", "Brave";v="121", "Chromium";v="121"',
-    'sec-ch-ua-mobile':
-
- '?0',
+    'sec-ch-ua-mobile': '?0',
     'sec-ch-ua-platform': '"Windows"',
     'sec-fetch-dest': 'empty',
     'sec-fetch-mode': 'cors',
@@ -269,7 +258,6 @@ def process_video_request(data):
     user_input = data.get("user_input")
     if not user_input:
         return JSONResponse(status_code=400, content={"error": "Missing user_input"})
-    
     generated_content = generate_content(user_input)
     generated_prompts = generate_prompts(generated_content)
     audio_url = convert_text_to_speech(generated_content)
@@ -287,7 +275,7 @@ def process_video_request(data):
             json_data = {
                 'prompt': full_prompt + "4k, high res, full hd, hyper realistic",
                 'image_type': 'digital_illustration',
-                'negative_prompt': "Negative prompt placeholder", 
+                'negative_prompt': "Negative prompt placeholder",
                 'user_controls': {},
                 'layer_size': {
                     'height': 3840,
@@ -298,16 +286,16 @@ def process_video_request(data):
                 'developer_params': {},
             }
             futures.append(executor.submit(generate_image_url_with_retry, headers, json_data))
-            
+
             # Add delay between image generations within a group
-            if (i+1) % 5 == 0: 
+            if (i + 1) % 5 == 0:
                 time.sleep(2)  # Adjust delay as needed
 
         # Add a longer delay between groups of image generations
         time.sleep(10)  # Increased delay for image URL retrieval
 
         image_urls = [future.result() for future in futures if future.result() is not None]
-        
+
         # Generate the video and upload to S3
         s3_url = generate_video(image_urls, audio_url)
         if s3_url:
@@ -320,10 +308,9 @@ def process_video_request(data):
 def generate_image_url_with_retry(headers, json_data):
     response = requests.post('https://api.recraft.ai/queue_recraft/prompt_to_image', headers=headers, json=json_data)
     # If 'operation_id' is in the JSON body:
-    if 'operationId' in response.json(): 
-        operation_id = response.json()['operationId'] 
+    if 'operationId' in response.json():
+        operation_id = response.json()['operationId']
         print("operation_id:", operation_id)
-
         # Poll for the result with extended timeout
         for _ in range(20):  # Adjust attempts as needed
             time.sleep(5)  # Wait 5 seconds between polls
@@ -336,7 +323,7 @@ def generate_image_url_with_retry(headers, json_data):
         # Process the response if images are available
         if 'images' in poll_recraft_response:
             print("Images:")
-            image_id = poll_recraft_response['images'][0]['image_id'] 
+            image_id = poll_recraft_response['images'][0]['image_id']
             print("  Image ID:", image_id)
             # Build the URL
             url = f"https://app.recraft.ai/community?imageId={image_id}"
